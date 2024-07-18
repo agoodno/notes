@@ -1,0 +1,5 @@
+:PROPERTIES:
+:ID:       97FE8FAB-4FD8-4046-BADC-156763238A3C
+:END:
+#+title: Emacs Lisp
+
