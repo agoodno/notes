@@ -1,0 +1,15 @@
+:PROPERTIES:
+:ID:       61F07D1A-87F3-4766-A95F-E0352BACABCC
+:END:
+#+title: Index
+
+This system implements a modified version of PARA that I've named PARANOID to accept a few more buckets for information.
+
+* Projects
+* Area
+* Resource
+* Archive
+* Nonesuch
+* Outbox
+* [[id:173982F0-DB5C-498D-97D6-7B0B0E026CBB][Inbox]]
+* Deleted

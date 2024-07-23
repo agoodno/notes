@@ -1,0 +1,12 @@
+:PROPERTIES:
+:ID:       173982F0-DB5C-498D-97D6-7B0B0E026CBB
+:END:
+#+title: Inbox
+
+This is the main folder for new ideas.
+
+* Ideas
+** Host a website on my NAS
+*** Create a blog
+*** Use Rails
+*** Use SQLite
