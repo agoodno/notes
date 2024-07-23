@@ -6,3 +6,5 @@
 One of the languages I use is [[id:97FE8FAB-4FD8-4046-BADC-156763238A3C][Emacs Lisp]].
 I also like [[id:CBAD65AF-CA48-42FA-9BC5-EB04ABB7BDE5][Clojure]].
 Anyway [[id:CBAD65AF-CA48-42FA-9BC5-EB04ABB7BDE5][Clojure]] is kind cool.
+
+[[id:fee8a381-d5cf-4311-a732-d5d9e03eb795][Elm]] is awesome.
