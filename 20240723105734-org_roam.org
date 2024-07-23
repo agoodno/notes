@@ -9,6 +9,13 @@
 :ROAM_ALIASES: "Org Roam Commands"
 :END:
 
+** ~org-roam-db-sync~
+Rebuilds the cache manually to re-index for searching, etc.
+
+Use this after a pull from the notes git repo. The
+~org-roam-db-autosync-mode~ function is called in the Emacs init so a
+restart would accomplish the same thing.
+
 ** ~org-roam-node-insert~
 
 Inserts a new node.
