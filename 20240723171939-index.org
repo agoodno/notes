@@ -3,9 +3,8 @@
 :END:
 #+title: Index
 
-This system uses [[https://www.orgroam.com/manual.html][Org Roam]] to implement a modified version of PARA that
-I've named PARANOID to accept a few more buckets for information.
-
+This system uses [[https://www.orgroam.com/manual.html][Org Roam]] to implement a modified version of PARA that I've named PARANOID to accept a few more buckets for information. If I'm using this system properly and capturing the information
+as I'm using it, I should be able to shut down all the tabs in my browser at the end of the day.
 
 * [[id:C47D6D33-BBD8-4B44-82CF-998C6311F7B4][Projects]]
 * Area
