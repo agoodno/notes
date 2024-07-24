@@ -3,9 +3,11 @@
 :END:
 #+title: Index
 
-This system implements a modified version of PARA that I've named PARANOID to accept a few more buckets for information.
+This system uses [[https://www.orgroam.com/manual.html][Org Roam]] to implement a modified version of PARA that
+I've named PARANOID to accept a few more buckets for information.
 
-* Projects
+
+* [[id:C47D6D33-BBD8-4B44-82CF-998C6311F7B4][Projects]]
 * Area
 * Resource
 * Archive

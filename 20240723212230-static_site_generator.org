@@ -1,0 +1,9 @@
+:PROPERTIES:
+:ID:       0FDAEE34-EEB5-4C5B-9E96-21A0D5A08E33
+:END:
+#+title: Static Site Generator
+
+Tool which converts source files containing pure content into
+HTML. The source files may contain markup that will be pre-processed
+into pure content before proceeding to the target html file.
+

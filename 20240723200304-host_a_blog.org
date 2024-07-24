@@ -1,0 +1,40 @@
+:PROPERTIES:
+:ID:       3DBFF988-A40C-400E-BC7E-EAE041B1DB84
+:END:
+#+title: Host a blog
+
+Create a blog using the simplest technologies possible so it's easy to
+post. I originally thought Wordpress with SQLite to host org file
+posts would be good. But converting org files to HTML using a [[id:0FDAEE34-EEB5-4C5B-9E96-21A0D5A08E33][static
+site generator]] and just pushing and hosting HTML would be the
+easiest. So, I'm looking into a static side generator. I'm choosing a
+tool written in Ruby so there is no learning curve.
+
+* References
+** Libraries
+*** [[https://orgmode.org/worg/org-tutorials/org-ruby.html][org-ruby]]
+Tool that parses org files into HTML.
+**** [[https://github.com/bdewey/org-ruby][org-ruby source]]
+*** webby
+Tool that combines a layout page with a content page to produce HTML.
+** Site Generators
+**** [[https://github.com/TwP/webby][webby source]]
+*** [[https://nanoc.app/][Nanoc]]
+[[id:0FDAEE34-EEB5-4C5B-9E96-21A0D5A08E33][SSG]] written in Ruby with support for org-mode files via an applied filter.
+**** Has support for org-mode files
+**** Has support for other datasources (like SQLite which was part of the original idea) which is really attractive
+**** Modern and complete
+*** Jekyll
+SSG written in Ruby with support for org-mode files. Has [[http://jekyllrb.com/resources/][support for canned
+themes]] which Nanoc doesn't. I liked [[https://pquod.github.io/simply-cyan-demo/about/][this one]]. I don't want to spend a ton of time
+theming the site and messing with HTML and CSS so this could be
+good. Also works will with Github Pages and makes me wonder if hosting
+there would be better.
+**** [[https://orgmode.org/worg/org-tutorials/org-jekyll.html][Using org to Blog with Jekyll]]
+
+For ultimate flexibility, I like Nanoc with it's SQLite support. That
+would be really great for a commercial site. But for a blog, data
+files will be enough and the support for themes is great. So I'll try
+Jekyll for my blog. And I'll host it on Github so there is absolutely
+no maintenance. Maybe I'll reserve hosting on my NAS for a business
+site or resume site or something.

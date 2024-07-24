@@ -1,0 +1,7 @@
+:PROPERTIES:
+:ID:       C5D6BA39-A079-44D2-B7CA-DA6FA3FA3DA0
+:END:
+#+title: Host A Site On My NAS
+
+Maybe a site relating to my business or my resume would be good on my NAS.
+

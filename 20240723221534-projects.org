@@ -1,0 +1,10 @@
+:PROPERTIES:
+:ID:       C47D6D33-BBD8-4B44-82CF-998C6311F7B4
+:END:
+#+title: Projects
+
+** TODO [[id:3DBFF988-A40C-400E-BC7E-EAE041B1DB84][Host a blog]]
+*** Create a blog
+*** Use Jekyll
+*** Use Org-mode files
+*** Host on Github

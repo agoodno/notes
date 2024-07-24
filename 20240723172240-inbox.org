@@ -6,7 +6,9 @@
 This is the main folder for new ideas.
 
 * Ideas
-** Host a website on my NAS
+** CLOSED +Host a website on my NAS+
 *** Create a blog
 *** Use Rails
 *** Use SQLite
+*** Use Docker container
+This idea split into [[id:3DBFF988-A40C-400E-BC7E-EAE041B1DB84][Host a blog]] and [[id:C5D6BA39-A079-44D2-B7CA-DA6FA3FA3DA0][Host a site on my NAS]].
