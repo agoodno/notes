@@ -36,8 +36,9 @@ I'll try Jekyll for my blog. And I'll host it on Github so there is absolutely n
 
 * Tasks
 ** TESTING Setup Ruby and Jekyl on local machine
-*** Used the post [[https://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/#if-youre-on-ventura-or-higher][The fastest and easiest way to install Ruby on a Mac in 2024]] to setup Ruby.
-*** [[https://www.moncefbelyamani.com/how-to-install-jekyll-on-a-mac-the-easy-way/#install-jekyll][How To Install Jekyll on Mac (M1 or Intel), the Easy Way]] to setup Jekyll.
+*** Used [[https://jekyllrb.com/docs/installation/macos/][Jekyll on macOS]] to plan setup on my Mac.
+*** Used [[https://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/#if-youre-on-ventura-or-higher][The fastest and easiest way to install Ruby on a Mac in 2024]] to setup Ruby.
+*** Used [[https://www.moncefbelyamani.com/how-to-install-jekyll-on-a-mac-the-easy-way/#install-jekyll][How To Install Jekyll on Mac (M1 or Intel), the Easy Way]] to setup Jekyll.
 *** Created a Jekyll project at ~~/work/my-jekyll-site~.
 ** Create a first post
 ** Create a repo to host the site
