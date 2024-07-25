@@ -1,0 +1,25 @@
+:PROPERTIES:
+:ID:       ff2c9ab2-a4f1-4705-8cd8-e905302da2ae
+:END:
+#+title: Domain Names
+#+todo: PARKED | LIVE
+
+My domains are registered with AWS in Route 53.
+
+| Domain name              | Expiration date    | Notes                                                         |
+|--------------------------+--------------------+---------------------------------------------------------------|
+| agingmanager.com         | July 25, 2025      |                                                               |
+| agoodno.com              | November 16, 2024  |                                                               |
+| bloodyfang.com           | July 17, 2025      |                                                               |
+| cushionandkeyboard.com   | July 22, 2025      |                                                               |
+| eddaology.com            | August 24, 2025    |                                                               |
+| eddaology.net            | August 24, 2025    |                                                               |
+| lakeviewhill.com         | December 19, 2024  |                                                               |
+| livelocalscoreboard.com  | June 18, 2025      | Hosted on Lamdera at https://livelocalscoreboard.lamdera.app/ |
+| objinx.com               | March 09, 2025     |                                                               |
+| onebananamoon.com        | March 29, 2025     |                                                               |
+| skateboardpunkrocker.com | May 25, 2025       |                                                               |
+| toweringcrowd.com        | September 16, 2024 |                                                               |
+| unicornbabymermaid.com   | October 30, 2024   |                                                               |
+| yggdrasilology.com       | August 24, 2025    |                                                               |
+| yggdrasilology.net       | August 24, 2025    |                                                               |
