@@ -1,0 +1,10 @@
+:PROPERTIES:
+:ID:       1d7d18d4-c28a-4f49-8ef9-cd3fc46a915d
+:END:
+#+title: Synology Drive
+
+[[https://www.synology.com/en-global/dsm/feature/drive][Synology Drive]] is a replacement of [[https://kb.synology.com/en-global/DSM/help/CloudStationClient/DScloudclient?version=6][Cloud Station ShareSync]] and is more full featured.
+
+I plan to migrate all of my files off of Dropbox to my NAS named Plato and then enable the [[id:1d7d18d4-c28a-4f49-8ef9-cd3fc46a915d][Synology Drive]] client on my computers. I'll also create a NAS user for jennifer and put
+her files in her user directory and sync from the home laptop.
+
