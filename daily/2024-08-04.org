@@ -1,0 +1,11 @@
+:PROPERTIES:
+:ID:       DD0B2DCC-4F93-4E06-BDDA-F53511491135
+:END:
+#+title: 2024-08-04
+
+* Setup tree-sitter in my emacs config
+Used the info in [[https://www.masteringemacs.org/article/how-to-get-started-tree-sitter][How to Get Started with Tree-Sitter]].
+* Started the [[https://mendotarowingclub.com/Adult-LTR][Adult Rowing class]]
+* Cal passed out at the Northside market today
+We put ice on his neck and made him drink water. I drove him home and put him in a cold bath. Then Jen and Finn came home and we watched The Bear.
+* 
