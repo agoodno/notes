@@ -43,5 +43,9 @@ Installing ruby using apt worked but resulted in an OpenSSL error. I really didn
 *** Used [[https://www.moncefbelyamani.com/how-to-install-jekyll-on-a-mac-the-easy-way/#install-jekyll][How To Install Jekyll on Mac (M1 or Intel), the Easy Way]] to setup Jekyll.
 *** Created a Jekyll project at ~~/work/my-jekyll-site~.
 ** Create a first post
+** Choose a theme
+*** Try [[https://pquod.github.io/simply-cyan-demo/about/][this one]].
+** PLANNING Decide on a domain that will fit
+Is it: agoodno.com or cushionandkeyboard.com? Probably cushionandkeyboard.com because agoodno.com would be a resume site.
 ** Create a repo to host the site
 ** Link it to one of my domains
