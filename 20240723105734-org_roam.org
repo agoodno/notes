@@ -31,6 +31,23 @@ Either finds or inserts a new node.
 Creates an id for a top-level header that makes the header into a node.
 
 
+* Actions
+** Find or create a note
+Use this when you think of a new note when not already in Org Roam context.
+
+M-x org-roam-node-find (C-c n f)
+
+** Find or create a new note and link at point
+Use this when editing a note and think of a new note and want to create and link to the new note from the current note.
+
+M-x org-roam-node-insert (C-c n i)
+
+** Visit an note link
+Use this to visit a note linked in the current note.
+
+M-x org-open-at-point (C-c C-o)
+
+
 * Notes
 
 ** Using spaces in minibuffer
