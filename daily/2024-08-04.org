@@ -5,7 +5,7 @@
 
 * Setup tree-sitter in my emacs config
 Used the info in [[https://www.masteringemacs.org/article/how-to-get-started-tree-sitter][How to Get Started with Tree-Sitter]].
-* Started the [[https://mendotarowingclub.com/Adult-LTR][Adult Rowing class]]
+* Started the [[id:8F290FE6-A566-4177-9A5F-3127C57AB6F9][Adult Rowing Class]] at the Mendota Rowing Club
 * Cal passed out at the Northside market today
 We put ice on his neck and made him drink water. I drove him home and put him in a cold bath. Then Jen and Finn came home and we watched The Bear.
 * 

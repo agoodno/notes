@@ -1,0 +1,7 @@
+:PROPERTIES:
+:ID:       8F290FE6-A566-4177-9A5F-3127C57AB6F9
+:END:
+#+title: Adult Rowing Class
+
+* References
+[[https://mendotarowingclub.com/Adult-LTR][Adult Rowing class]]
