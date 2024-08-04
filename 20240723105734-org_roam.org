@@ -54,3 +54,6 @@ M-x org-open-at-point (C-c C-o)
 The space bar is mapped to completion in the minibuffer so when
 creating or searching for nodes containing spaces, use ~C-q <space>~
 to insert a space.
+
+* References
+** [[https://www.orgroam.com/manual.html][Org Roam Manual]]
