@@ -8,7 +8,6 @@
 :ID:       E04776E9-856B-4073-ADAF-9C8ECFC38C3C
 :ROAM_ALIASES: "Org Roam Commands"
 :END:
-
 ** ~org-roam-db-sync~
 Rebuilds the cache manually to re-index for searching, etc.
 
@@ -20,16 +19,22 @@ restart would accomplish the same thing.
 
 Inserts a new node.
 
-
 ** ~org-roam-node-find~
 
 Either finds or inserts a new node.
-
 
 ** ~org-id-get-create~
 
 Creates an id for a top-level header that makes the header into a node.
 
+
+* Tools
+:PROPERTIES:
+:ID:       F611954E-48DE-4621-94A7-455E0BC887DA
+:ROAM_ALIASES: "Org Roam Tools"
+:END:
+** Org Roam UI
+[[https://github.com/org-roam/org-roam-ui][org-roam-ui]]
 
 * Actions
 ** Find or create a note
