@@ -1,0 +1,10 @@
+:PROPERTIES:
+:ID:       F1328C2A-C71C-4DB0-9F97-46E7FCE9A844
+:END:
+#+title: Homebrew
+
+* Commands
+** Show the tree of installed dependencies
+#+begin_src bash
+  brew deps --tree --installed
+#+end_src

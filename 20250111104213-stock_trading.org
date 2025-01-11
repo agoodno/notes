@@ -1,0 +1,46 @@
+:PROPERTIES:
+:ID:       FB4AE64F-EF1D-4F97-AFDD-B621748D8D3C
+:END:
+#+title: Stock Trading
+
+* Stock Trading
+** Reference
+[[https://www.schwab.com/learn/story/3-order-types-market-limit-and-stop-orders][3 Order Types: Market, Limit, and Stop Orders]]
+
+** 3 Order Types
+
+*** Market Orders
+Market orders operate at the current market price during the hours of trading. Orders places outside of trading hours have the potential to execute when the market opens. Orders
+can stipulate Day or Day+Extended. Day+Extended is used when the market order is placed outside of the day's trading so it's active when the market opens tomorrow. See "A few words
+about timing" in the article.
+
+*** Limit Orders
+
+**** Buy
+This type of order is for when I think the price of a stock is over-valued but worth it if it dips to a value I deem worth it or a bargain.
+
+**** Sell
+This type of order is for when I want to "take my gains" and get some cash while the market is high.
+
+*** Stop Limit Orders
+
+**** Buy
+For a stock that starts rising, this type of order stops the stock from getting away from you so you can get in on the rise.
+
+**** Sell
+Sometimes called a "stop loss", this type of order is for when I want to sell before a stock goes below a certain price so I can realize some gains or at least break even if it
+looks like I'll start to lose money. It's useful so I don't have to watch the market and can do the analysis when I have time and set up the order to trigger based on the rule I
+set.
+
+* Current Orders
+** Stop Limit Sell - Sell all Tesla stock if it drops below $375.
+Sell 48 TSLA @ Stop $375.00 Limit $375.00, Good till canceled, Jul 9, 2025
+Cost Basis Method: First In First Out
+
+Stop my losses if Tesla starts going south due to strenth of Chinese EVs. I might put in a buy just after if it starts going up again based on what happens.
+
+** Market Order Sell - Sell all Masimo
+Sell 8 MASI @ Market, Day
+Cost Basis Method: First In First Out
+
+Reduce my exposure to tariffs that are coming with Trump in office. Masimo manufactures electronics that are built in Japan.

@@ -1,0 +1,77 @@
+:PROPERTIES:
+:ID:       05BD2837-8CBD-4649-A04E-A7C1A01E31E9
+:END:
+#+title: iCloud Downloader
+
+* References
+** [[https://github.com/icloud-photos-downloader/icloud_photos_downloader][Github repo]]
+** [[https://icloud-photos-downloader.github.io/icloud_photos_downloader/index.html][Documentation]]
+
+* iCloud Downloader
+** iCloud Downloader command to run auth only
+#+begin_src
+icloudpd --port 8080:8080 --username agoodno@gmail.com --password y0aTgcdasya --auth-only --mfa-provider webui
+#+end_src
+
+** iCloud Downloader command to run sync
+#+begin_src
+icloudpd --directory /data --username agoodno@gmail.com --password y0aTgcdasya --watch-with-interval 3600
+#+end_src
+
+** Docker command to run iCloud Downloader auth only
+#+begin_src
+docker run -it --rm --name andy-icloudpd-auth -e TZ=America/Chicago icloudpd/icloudpd:latest icloudpd --port 8080:8080 --username agoodno@gmail.com --password y0aTgcdasya --auth-only --mfa-provider webui
+#+end_src
+
+** Docker command to run iCloud Downloader
+#+begin_src
+docker run -it --rm --name andy-icloudpd -v /volume1/photo/iCloudPhotosDataSync/Andy:/data -e TZ=America/Chicago icloudpd/icloudpd:latest icloudpd --directory /data --username agoodno@gmail.com --password y0aTgcdasya --watch-with-interval 3600 --auto-delete
+#+end_src
+
+** iCloud Downloader options
+
+[[https://icloud-photos-downloader.github.io/icloud_photos_downloader/reference.html][Options reference]]
+
+*** Directory
+Set the directory to download to. If running locally this can be set to anything. When running in a docker container, it will typically be set to ~/data~. That directory will then
+be mapped to a local directory which will be more specific.
+
+#+begin_src
+--directory
+#+end_src
+
+*** List albums
+Lists all available albums.
+
+#+begin_src
+--list-albums
+#+end_src
+
+*** MFA Provider
+How the command prompts with the MFA challenge - values are ~console~ and ~webui~, default is ~console~.
+
+#+begin_src
+--mfa-provider webui
+#+end_src
+
+*** Auto Delete
+This flag will delete photos that have been deleted on the Apple device.
+
+#+begin_src
+--auto-delete
+#+end_src
+
+** Synology
+
+*** Fix for running docker at the command line
+from [[https://stackoverflow.com/questions/51342810/how-to-fix-dial-unix-var-run-docker-sock-connect-permission-denied-when-gro][here]]
+
+#+begin_src
+sudo chmod 666 /var/run/docker.sock
+#+end_src
+
+*** SSH into Synology
+
+#+begin_src
+ssh andrew@platology.synology.me
+#+end_src

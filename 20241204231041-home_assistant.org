@@ -1,0 +1,8 @@
+:PROPERTIES:
+:ID:       FE3338C4-91E3-4EFE-95E9-9D91EA206D85
+:END:
+#+title: Home Assistant
+
+* Home Assistant
+** Installation
+Installed on my Synology NAS [[https://www.home-assistant.io/installation/alternative/#synology-nas][by following instructions here]].
