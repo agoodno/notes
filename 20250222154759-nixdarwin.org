@@ -1,0 +1,6 @@
+:PROPERTIES:
+:ID:       AD9279C5-7DED-4E3A-948B-7BF7DA0B2815
+:END:
+#+title: NixDarwin
+
+darwin-rebuild switch --flake ~/.config/nix-darwin
