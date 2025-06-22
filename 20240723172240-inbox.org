@@ -1,7 +1,7 @@
 :PROPERTIES:
 :ID:       173982F0-DB5C-498D-97D6-7B0B0E026CBB
 :END:
-#+title: Inbox
+#+title: Personal Inbox
 
 This is the main folder for new ideas.
 
@@ -14,3 +14,4 @@ This is the main folder for new ideas.
 This idea split into [[id:3DBFF988-A40C-400E-BC7E-EAE041B1DB84][Host a blog]] and [[id:C5D6BA39-A079-44D2-B7CA-DA6FA3FA3DA0][Host a site on my NAS]].
 ** Blog about org-roam
 The time to write good organized notes (in prose) is when you have time. Then when someone asks about it, it makes you look like a god to paste something so elegant and quickly.
+* 
