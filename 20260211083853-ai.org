@@ -1,0 +1,8 @@
+:PROPERTIES:
+:ID:       C4394F64-FD7D-412C-B0C5-C61C05C328AB
+:END:
+#+title: AI
+#+options: toc:nil
+
+** Blog posts
+[[https://www.darioamodei.com/essay/the-adolescence-of-technology][The Adolescence of Technology: Confronting and Overcoming the Risks of Powerful AI]]
