@@ -1,0 +1,8 @@
+:PROPERTIES:
+:ID:       f9ee906d-8c08-40b4-b1ae-31cd47b5cfa5
+:END:
+#+title: Lenovo Thinkpad T490
+#+options: toc:nil
+
+** Parts
+[[https://lenovo.encompass.com/item/12713403/Lenovo/5B10W51827/][Battery]]

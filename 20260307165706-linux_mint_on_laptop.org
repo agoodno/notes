@@ -1,0 +1,131 @@
+:PROPERTIES:
+:ID:       e8f11668-0832-4f13-a8a5-14e97efcc3d2
+:END:
+#+title: Linux Mint On Laptop
+#+options: toc:nil
+
+** Command-line tools
+
+*** Use Network Manager CLI to
+
+**** Work wifi
+
+***** List available access points
+#+begin_src
+nmcli device wifi list
+#+end_src
+
+
+***** Narrow the list of available access points
+#+begin_src
+nmcli device wifi list |grep UW
+#+end_src
+
+
+***** Connect to an access point
+
+****** Connect to an endpoint
+#+begin_src
+nmcli device wifi connect "UWNet"
+#+end_src
+
+****** Connect to a password-protected endpoint, ask for password
+#+begin_src
+nmcli device wifi connect "class-password" -a
+#+end_src
+
+**** Work with a VPN
+
+***** Password file
+#+begin_src
+~/.vpn.buddhaology.config
+#+end_src
+
+***** Config file
+#+begin_src
+/run/NetworkManager/system-connections/Buddhaology.nmconnection
+#+end_src
+
+***** Connect to Buddhaology
+
+First time?
+
+#+begin_src
+nmcli --passwd-file ~/.vpn.buddhaology.config connection up Buddhaology
+#+end_src
+
+Next time?
+
+Somehow the password got into the config file so I don't think the password file is needed/used at all.
+
+
+#+begin_src
+nmcli connection up Buddhaology
+#+end_src
+
+
+***** Disconnect from Buddhaology
+#+begin_src
+nmcli connection down Buddhaology
+#+end_src
+
+
+***** Create the VPN config file
+
+These commands are how I setup the VPN connection to Buddha. It shows my troubleshooting and I'm preserving the log of unique commands to show what's available. The next one I
+setup should be more direct and I'll update my notes for how to create a connection then.
+
+#+begin_src
+ 1865  sudo nmcli connection import type openvpn file VPNConfig.ovpn 
+ 1866  man nmcli
+ 1867  nmcli show
+ 1868  nmcli connection show
+ 1869  nmcli show VPNConfig
+ 1870  nmcli --ask connection up VPNConfig
+ 1871  nmcli connection modify VPNConfig +vpn.secrets "password=yourpassword"
+ 1873  nmcli connection up VPNConfig
+ 1879  sudo nmcli -f NAME,UUID,FILENAME connection show
+ 1882  sudo nmcli connection reload
+ 1883  nmcli connection up VPNConfig
+ 1885  sudo nmcli connection modify VPNConfig vpn.data "password-flags=0"
+ 1886  sudo nmcli connection reload
+ 1887  nmcli connection up VPNConfig
+ 1889  sudo cat $(sudo nmcli -f FILENAME connection show d82e8f77-1df8-4c00-9382-51e6abfc75d0)
+ 1890  sudo cat $(sudo nmcli -f /run/NetworkManager/system-connections/netplan-NM-d82e8f77-1df8-4c00-9382-51e6abfc75d0.nmconnection connection show d82e8f77-1df8-4c00-9382-51e6abfc75d0)
+ 1894  sudo nmcli connection modify VPNConfig vpn.data "username=yourusername"
+ 1896  sudo nmcli connection modify VPNConfig vpn.data "password-flags=0" vpn.data "username=yourusername"
+ 1899  sudo nmcli connection import type openvpn file VPNConfig.ovpn
+ 1900  sudo nmcli connection modify VPNConfig connection.id Buddhaology
+ 1901  nmcli connection modify VPNConfig +vpn.data "username=yourusername"
+ 1902  nmcli connection modify VPNConfig +vpn.data "password-flags=0"
+ 1903  sudo nmcli connection delete Buddha
+ 1904  sudo nmcli connection delete VPNConfig
+ 1905  sudo nmcli connection delete Buddhaology
+ 1906  sudo nmcli connection import type openvpn file VPNConfig.ovpn
+ 1907  sudo nmcli connection modify VPNConfig connection.id Buddhaology
+ 1908  nmcli connection modify VPNConfig +vpn.data "username=yourusername"
+ 1909  nmcli connection modify VPNConfig +vpn.data "password-flags=0"
+ 1910  sudo nmcli connection delete Buddhaology
+ 1911  sudo nmcli connection import type openvpn file VPNConfig.ovpn
+ 1912  sudo nmcli connection modify VPNConfig connection.id Buddhaology
+ 1913  nmcli connection modify VPNConfig +vpn.data "username=yourusername"
+ 1914  nmcli connection modify VPNConfig +vpn.secrets "password=yourpassword"
+ 1915  nmcli connection modify VPNConfig +vpn.data "password-flags=0"
+ 1916  sudo nmcli connection delete Buddhaology
+ 1917  sudo nmcli connection import type openvpn file VPNConfig.ovpn
+ 1918  sudo nmcli connection modify VPNConfig connection.id Buddhaology
+ 1919  nmcli connection modify Buddhaology +vpn.data "username=yourusername"
+ 1920  nmcli connection modify Buddhaology +vpn.secrets "password=yourpassword"
+ 1921  nmcli connection modify Buddhaology +vpn.data "password-flags=0"
+ 1924  nmcli connection up Buddhaology
+ 1925  nmcli --ashconnection up Buddhaology
+ 1926  nmcli --ask connection up Buddhaology
+ 1932  sudo nmcli connection reload
+ 1933  nmcli connection up Buddhaology
+ 1934  nmcli --passwd-file ~/.vpn.buddhaology.config connection up Buddhaology
+ 1935  nmcli --help
+ 1936  nmcli --ask connection up Buddhaology
+ 1937  nmcli --ask connection down Buddhaology
+ 1938  sudo nmcli --show-secrets connection show Buddhaology | grep -i secret
+ 1939  nmcli connection up Buddhaology
+#+end_src
