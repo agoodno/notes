@@ -36,6 +36,7 @@ Creates an id for a top-level header that makes the header into a node.
 ** Org Roam UI
 [[https://github.com/org-roam/org-roam-ui][org-roam-ui]]
 
+
 * Actions
 ** Find or create a note
 Use this when you think of a new note when not already in Org Roam context.
@@ -62,3 +63,4 @@ to insert a space.
 
 * References
 ** [[https://www.orgroam.com/manual.html][Org Roam Manual]]
+** [[https://karl-voit.at/2019/09/25/using-orgmode/][Blog Series: Using Org Mode Features (UOMF)]]
