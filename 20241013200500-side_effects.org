@@ -1,0 +1,8 @@
+:PROPERTIES:
+:ID:       d11416e0-cebd-4a5a-845b-b34b88cda258
+:END:
+#+title: Side Effects
+#+filetags: :programming:
+
+Side effects in a computer program are when functions cause external state to be altered outside of the confines of the currently running function. A function with side effects,
+such as I/O, is by defintion not a [[id:d6994709-5dea-472c-ac41-ea6ab7e42e46][pure function]] because it destroys referencial transparency.

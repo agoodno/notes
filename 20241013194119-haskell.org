@@ -1,0 +1,8 @@
+:PROPERTIES:
+:ID:       e84eccc4-a6cc-482a-9d7a-aa8518d2b05f
+:END:
+#+title: Haskell
+
+* Books
+
+** [[id:99ce998f-add1-445f-9542-45f234714054][Learn You a Haskell for Great Good!]]

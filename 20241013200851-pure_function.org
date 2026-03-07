@@ -1,0 +1,6 @@
+:PROPERTIES:
+:ID:       d6994709-5dea-472c-ac41-ea6ab7e42e46
+:END:
+#+title: Pure Function
+
+

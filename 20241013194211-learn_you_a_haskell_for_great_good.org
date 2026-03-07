@@ -1,0 +1,19 @@
+:PROPERTIES:
+:ID:       99ce998f-add1-445f-9542-45f234714054
+:END:
+#+title: Learn You a Haskell for Great Good!
+#+filetags: :book:haskell:
+
+
+* Reading Notes
+
+** Chapter 1
+
+*** Concepts
+
+**** [[id:d11416e0-cebd-4a5a-845b-b34b88cda258][Side Effects]]
+
+
+** Chapter 2
+
+** Chapter 3
