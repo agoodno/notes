@@ -4,5 +4,12 @@
 #+title: Claude Code
 #+options: toc:nil
 
+* Claude Code
 ** Tips
 [[https://www.threads.com/@boris_cherny/post/DUMZr4VElyb?xmt=AQF0Zc0FFFxeBzsz9gETkcVZJmZe6A_RErA4IiRF2j4-uCQjQbfTM7g-m6lBx3RfIleT4LvY&slof=1][Boris Cherny X post]]
+
+** Claudisms
+
+*** Merging #1638 is now the __highest-leverage action__ on this plan.
+
+*** ..works, but it's __strictly worse__ and needs a follow-up swap.
