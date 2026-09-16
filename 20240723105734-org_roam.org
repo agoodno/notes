@@ -73,13 +73,20 @@ At startup the config calls ~(agg--roam-switch org-roam-directory t)~:
 no per-machine setting.
 
 ** Commands
-| ~agg/roam-toggle-notes~             | swap between work and personal |
-| ~agg/roam-switch-to-personal-notes~ | go to personal                 |
-| ~agg/roam-switch-to-work-notes~     | go to work                     |
+| ~agg/roam-toggle-notes~             | toggle between work and personal |
+| ~agg/roam-switch-to-personal-notes~ | go to personal                   |
+| ~agg/roam-switch-to-work-notes~     | go to work                       |
 
 These are defined at top level rather than inside ~use-package~'s
 ~:config~ so they exist from a cold session -- ~agg--roam-switch~ requires
 org-roam itself.
+
+The toggle is deliberately asymmetric: from the work notes it goes to
+personal, and from *anywhere else* -- including an ~org-roam-directory~ it
+does not recognize -- it goes to work. So a stray value resolves to the
+startup default instead of leaving you stuck. Comparison is by
+~file-truename~ with normalized trailing slashes, so a symlinked path still
+matches.
 
 ** Syncing a store you are not currently in
 ~org-roam-db-sync~ reads ~org-roam-directory~ and ~org-roam-db-location~
