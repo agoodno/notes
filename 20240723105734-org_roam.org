@@ -61,6 +61,46 @@ The space bar is mapped to completion in the minibuffer so when
 creating or searching for nodes containing spaces, use ~C-q <space>~
 to insert a space.
 
+* Multiple stores
+** Each store needs its own database
+Setting ~org-roam-directory~ alone is not enough. ~org-roam-db-location~
+keeps its default under =~/.emacs.d/=, so a second store silently reads
+the first store's cache. ~agg--roam-switch~ sets both, which is why it
+exists instead of a bare ~setq~ of the directory.
+
+At startup the config calls ~(agg--roam-switch org-roam-directory t)~:
+=custom.el= owns which store loads, and this fixes only the half that has
+no per-machine setting.
+
+** Commands
+| ~agg/roam-toggle-notes~             | swap between work and personal |
+| ~agg/roam-switch-to-personal-notes~ | go to personal                 |
+| ~agg/roam-switch-to-work-notes~     | go to work                     |
+
+These are defined at top level rather than inside ~use-package~'s
+~:config~ so they exist from a cold session -- ~agg--roam-switch~ requires
+org-roam itself.
+
+** Syncing a store you are not currently in
+~org-roam-db-sync~ reads ~org-roam-directory~ and ~org-roam-db-location~
+dynamically, and ~org-roam-db--connection~ is a hash keyed by directory
+which ~db-sync~ closes first to force a reconnect. So a ~let~ binding
+reindexes the *other* store without disturbing the current session:
+
+#+begin_src emacs-lisp
+  (let ((org-roam-directory "~/notes/")
+        (org-roam-db-location "~/notes/org-roam.db"))
+    (org-roam-db-sync))
+#+end_src
+
+Calling ~agg/roam-switch-to-personal-notes~ to do this instead would
+switch the live session out from under you.
+
+** Only Emacs' own saves are indexed
+~org-roam-db-autosync-mode~ hooks buffer saves, so anything that changes
+files outside Emacs -- a git pull, or a script writing notes -- stays
+invisible to search until an explicit ~org-roam-db-sync~.
+
 * References
 ** [[https://www.orgroam.com/manual.html][Org Roam Manual]]
 ** [[https://karl-voit.at/2019/09/25/using-orgmode/][Blog Series: Using Org Mode Features (UOMF)]]
