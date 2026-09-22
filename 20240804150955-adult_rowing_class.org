@@ -3,5 +3,6 @@
 :END:
 #+title: Adult Rowing Class
 
-* References
+* Adult Rowing Class
+** References
 [[https://mendotarowingclub.com/Adult-LTR][Adult Rowing class]]

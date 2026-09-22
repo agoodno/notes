@@ -3,8 +3,9 @@
 :END:
 #+title: Homebrew
 
-* Commands
-** Show the tree of installed dependencies
+* Homebrew
+** Commands
+*** Show the tree of installed dependencies
 #+begin_src bash
   brew deps --tree --installed
 #+end_src

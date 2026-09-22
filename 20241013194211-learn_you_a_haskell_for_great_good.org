@@ -4,16 +4,16 @@
 #+title: Learn You a Haskell for Great Good!
 #+filetags: :book:haskell:
 
+* Learn You a Haskell for Great Good!
+** Reading Notes
 
-* Reading Notes
+*** Chapter 1
 
-** Chapter 1
+**** Concepts
 
-*** Concepts
-
-**** [[id:d11416e0-cebd-4a5a-845b-b34b88cda258][Side Effects]]
+***** [[id:d11416e0-cebd-4a5a-845b-b34b88cda258][Side Effects]]
 
 
-** Chapter 2
+*** Chapter 2
 
-** Chapter 3
+*** Chapter 3

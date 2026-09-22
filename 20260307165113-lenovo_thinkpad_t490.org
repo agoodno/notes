@@ -4,5 +4,6 @@
 #+title: Lenovo Thinkpad T490
 #+options: toc:nil
 
+* Lenovo Thinkpad T490
 ** Parts
 [[https://lenovo.encompass.com/item/12713403/Lenovo/5B10W51827/][Battery]]

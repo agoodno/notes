@@ -3,14 +3,16 @@
 :END:
 #+title: Tmux
 
+* Tmux
+** Summary
 Prefix is ~C-t~ (remapped from ~C-b~).
 Config lives at =~/sonos-stow/tmux/.tmux.conf=, stowed to =~/.tmux.conf=.
 
 Layout model: *one session per worktree*, windows for roles inside it
 (=claude=, =shell=). Session name carries the worktree; window names stay short.
 
-* Keys
-** Sessions
+** Keys
+*** Sessions
 | ~C-t s~     | session/window tree — see [[*Tree mode]] |
 | ~C-t L~     | last session (toggle between two tasks)  |
 | ~C-t (~ ~)~ | previous / next session                  |
@@ -19,7 +21,7 @@ Layout model: *one session per worktree*, windows for roles inside it
 
 No default key kills a session — use tree mode or ~C-t :kill-session~.
 
-** Tree mode (inside ~C-t s~)
+*** Tree mode (inside ~C-t s~)
 | ~Enter~ | switch to selected item     |
 | ~x~     | kill selected item          |
 | ~t~     | tag item                    |
@@ -28,7 +30,7 @@ No default key kills a session — use tree mode or ~C-t :kill-session~.
 | ~f~     | filter by format            |
 | ~q~     | exit                        |
 
-** Windows
+*** Windows
 | ~C-t c~     | new window                            |
 | ~C-t ,~     | rename window                         |
 | ~C-t 0..9~  | select window by index                |
@@ -40,7 +42,7 @@ No default key kills a session — use tree mode or ~C-t :kill-session~.
 
 Two levels of "go back": ~C-t L~ across tasks, ~C-t l~ within one.
 
-** Panes
+*** Panes
 | ~C-t %~ | split left/right               |
 | ~C-t "~ | split top/bottom               |
 | ~C-t o~ | next pane                      |
@@ -49,35 +51,35 @@ Two levels of "go back": ~C-t L~ across tasks, ~C-t l~ within one.
 | ~C-t x~ | kill pane (confirms)           |
 | ~C-t q~ | show pane numbers              |
 
-** Resurrect
+*** Resurrect
 | ~C-t C-s~ | save all sessions |
 | ~C-t C-r~ | restore           |
 
 Saves are manual and server-wide — see [[*Resurrect]] for paths and caveats.
 
-* Commands
+** Commands
 Run at the ~C-t :~ prompt (no =tmux= prefix). Chain with ~ ; ~ (spaces matter).
 
-** New session for a worktree
+*** New session for a worktree
 #+begin_src tmux
   new -s scope-origin-lock-env -c ~/work/pls-scope-origin-lock-env
 #+end_src
 
-** Kill sessions
+*** Kill sessions
 #+begin_src tmux
   kill-session -t <name>   # one
   kill-session             # current
   kill-session -a          # all but current
 #+end_src
 
-** Move a window to another session
+*** Move a window to another session
 #+begin_src tmux
   move-window -s 0:11 -t relay-service:      # append at next free index
   move-window -s 0:11 -t relay-service:0 -k  # overwrite index 0, killing it
 #+end_src
 Target session must already exist — ~move-window~ will not create it.
 
-** Clear a stale pane title
+*** Clear a stale pane title
 #+begin_src tmux
   select-pane -T ""
 #+end_src
@@ -85,7 +87,7 @@ Claude Code sets the pane title (~✳ <topic>~) via an escape sequence and tmux
 keeps the last value forever, so exited Claude panes keep a dead title.
 ~set -g allow-set-title off~ stops it entirely, at the cost of the useful ones.
 
-* Worktree migration recipe
+** Worktree migration recipe
 Converting one window (with its panes) into its own session. Four lines:
 
 #+begin_src tmux
@@ -119,7 +121,7 @@ Don't move the window you are attached to — rename the session in place:
   rename-session -t 0 default
 #+end_src
 
-* Resurrect
+** Resurrect
 Saves are *server-wide*. ~save.sh~ dumps with ~list-panes -a~ / ~list-windows -a~,
 so every session is captured, not just the current one.
 
@@ -162,7 +164,7 @@ A save holds structure only: sessions, windows, panes, names, layouts, working
 directories, and a conservative allowlist of programs to relaunch. Claude Code
 sessions do *not* come back live — you get shells in the right directories.
 
-* Status bar
+** Status bar
 Session name on the left comes from catppuccin's session module, which also
 flashes *red while the prefix is held* — a handy ~C-t~ indicator.
 
@@ -183,7 +185,7 @@ Gotchas:
   ~#{=/20/…:pane_title}~.
 - Reload without restarting: ~C-t :source ~/.tmux.conf~
 
-* Inspection one-liners
+** Inspection one-liners
 #+begin_src bash
   tmux list-sessions -F '#{session_name}: #{session_windows} windows'
   tmux list-windows -t 0 -F '#{window_index}: #{window_name} | #{pane_current_path}'
@@ -192,7 +194,7 @@ Gotchas:
   tmux list-keys -T prefix | grep -i kill     # what a key is really bound to
 #+end_src
 
-* References
-** [[id:D4F11D13-7362-4906-846F-BA30ACED006D][GNU Stow]]
+** References
+*** [[id:D4F11D13-7362-4906-846F-BA30ACED006D][GNU Stow]]
 How =tmux/.tmux.conf= reaches =~/.tmux.conf=, and why this package folds into a
 single symlink.

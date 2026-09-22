@@ -3,66 +3,64 @@
 :END:
 #+title: Org Roam
 
-* Commands
+* Org Roam
+** Commands
 :PROPERTIES:
 :ID:       E04776E9-856B-4073-ADAF-9C8ECFC38C3C
 :ROAM_ALIASES: "Org Roam Commands"
 :END:
-** ~org-roam-db-sync~
+*** ~org-roam-db-sync~
 Rebuilds the cache manually to re-index for searching, etc.
 
 Use this after a pull from the notes git repo. The
 ~org-roam-db-autosync-mode~ function is called in the Emacs init so a
 restart would accomplish the same thing.
 
-** ~org-roam-node-insert~
+*** ~org-roam-node-insert~
 
 Inserts a new node.
 
-** ~org-roam-node-find~
+*** ~org-roam-node-find~
 
 Either finds or inserts a new node.
 
-** ~org-id-get-create~
+*** ~org-id-get-create~
 
 Creates an id for a top-level header that makes the header into a node.
 
-
-* Tools
+** Tools
 :PROPERTIES:
 :ID:       F611954E-48DE-4621-94A7-455E0BC887DA
 :ROAM_ALIASES: "Org Roam Tools"
 :END:
-** Org Roam UI
+*** Org Roam UI
 [[https://github.com/org-roam/org-roam-ui][org-roam-ui]]
 
-
-* Actions
-** Find or create a note
+** Actions
+*** Find or create a note
 Use this when you think of a new note when not already in Org Roam context.
 
 M-x org-roam-node-find (C-c n f)
 
-** Find or create a new note and link at point
+*** Find or create a new note and link at point
 Use this when editing a note and think of a new note and want to create and link to the new note from the current note.
 
 M-x org-roam-node-insert (C-c n i)
 
-** Visit an note link
+*** Visit an note link
 Use this to visit a note linked in the current note.
 
 M-x org-open-at-point (C-c C-o)
 
+** Notes
 
-* Notes
-
-** Using spaces in minibuffer
+*** Using spaces in minibuffer
 The space bar is mapped to completion in the minibuffer so when
 creating or searching for nodes containing spaces, use ~C-q <space>~
 to insert a space.
 
-* Multiple stores
-** Each store needs its own database
+** Multiple stores
+*** Each store needs its own database
 Setting ~org-roam-directory~ alone is not enough. ~org-roam-db-location~
 keeps its default under =~/.emacs.d/=, so a second store silently reads
 the first store's cache. ~agg--roam-switch~ sets both, which is why it
@@ -72,7 +70,7 @@ At startup the config calls ~(agg--roam-switch org-roam-directory t)~:
 =custom.el= owns which store loads, and this fixes only the half that has
 no per-machine setting.
 
-** Commands
+*** Commands
 | ~agg/roam-toggle-notes~             | toggle between work and personal |
 | ~agg/roam-switch-to-personal-notes~ | go to personal                   |
 | ~agg/roam-switch-to-work-notes~     | go to work                       |
@@ -88,7 +86,7 @@ startup default instead of leaving you stuck. Comparison is by
 ~file-truename~ with normalized trailing slashes, so a symlinked path still
 matches.
 
-** Syncing a store you are not currently in
+*** Syncing a store you are not currently in
 ~org-roam-db-sync~ reads ~org-roam-directory~ and ~org-roam-db-location~
 dynamically, and ~org-roam-db--connection~ is a hash keyed by directory
 which ~db-sync~ closes first to force a reconnect. So a ~let~ binding
@@ -103,11 +101,11 @@ reindexes the *other* store without disturbing the current session:
 Calling ~agg/roam-switch-to-personal-notes~ to do this instead would
 switch the live session out from under you.
 
-** Only Emacs' own saves are indexed
+*** Only Emacs' own saves are indexed
 ~org-roam-db-autosync-mode~ hooks buffer saves, so anything that changes
 files outside Emacs -- a git pull, or a script writing notes -- stays
 invisible to search until an explicit ~org-roam-db-sync~.
 
-* References
-** [[https://www.orgroam.com/manual.html][Org Roam Manual]]
-** [[https://karl-voit.at/2019/09/25/using-orgmode/][Blog Series: Using Org Mode Features (UOMF)]]
+** References
+*** [[https://www.orgroam.com/manual.html][Org Roam Manual]]
+*** [[https://karl-voit.at/2019/09/25/using-orgmode/][Blog Series: Using Org Mode Features (UOMF)]]

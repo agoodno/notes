@@ -4,6 +4,7 @@
 #+title: Linux Mint On Laptop
 #+options: toc:nil
 
+* Linux Mint On Laptop
 ** Command-line tools
 
 *** Use Network Manager CLI to
