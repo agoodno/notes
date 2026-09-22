@@ -1,0 +1,86 @@
+:PROPERTIES:
+:ID:       D4F11D13-7362-4906-846F-BA30ACED006D
+:END:
+#+title: GNU Stow
+#+filetags: :technique:stow:dotfiles:
+#+options: toc:nil
+
+* GNU Stow
+Packages live in =~/sonos-stow/=, one directory per package. Run from inside
+that repo; stow assumes the *parent* directory is the target, so a checkout at
+the home directory root needs no ~-t~.
+
+#+begin_src bash
+  cd ~/sonos-stow
+  stow -v <pkg>        # link
+  stow -v -R <pkg>     # restow (unlink + relink)
+  stow -v -D <pkg>     # unlink
+  stow -n -v -R <pkg>  # simulate; prints actions, writes nothing
+#+end_src
+
+* Tree folding: whole dir vs. individual files
+Stow links *the shallowest thing it can get away with*. The only input to the
+decision is *what already exists at the target path* — nothing about the
+package matters.
+
+For each item in the package, compared against its target:
+
+| target path                              | stow's move                                                  |
+|------------------------------------------+--------------------------------------------------------------|
+| nothing exists                           | symlink the whole item, directory and all — *tree folding*   |
+| a *real* directory                       | can't replace it; descend one level, re-apply per child      |
+| a symlink into the stow dir (other pkg)  | *tree unfolding*: make it a real dir, relink both packages   |
+| anything else                            | conflict, abort                                              |
+
+So it recurses only as far as it is forced to, and the boundary can land at any
+depth.
+
+** How that played out here
+| =~/.ssh=, =~/bin=, =~/.gitconfig=  | one symlink each — nothing pre-existed  |
+| =~/.claude=                        | real dir; 6 children linked, 31 left alone |
+| =~/.config/direnv/direnvrc=        | descended *twice*; fold landed on the file |
+
+=~/.claude= is a real directory because Claude Code creates =projects/=,
+=cache/=, =plugins/= and =tasks/= there itself, so stow could never own the
+whole thing. =~/.config= and =~/.config/direnv= likewise already existed, which
+pushed the direnv fold down to a single file.
+
+** The consequence that actually bites
+*Folded packages need no restow; unfolded ones do.*
+
+- Adding =ssh/.ssh/newkey.pub= is live at =~/.ssh/= immediately — the directory
+  itself is the link.
+- Adding a *new top-level entry* under =claude/.claude/= (say an =agents/= dir)
+  creates nothing at =~/.claude/= until ~stow -R claude~.
+- Editing files that are already linked works either way.
+
+Check which case a target is in:
+#+begin_src bash
+  ls -ld ~/.ssh                          # symlink => folded
+  find ~/.claude -maxdepth 1 -type l     # per-child links => unfolded
+#+end_src
+
+~stow --no-folding~ forces per-file links everywhere — more symlinks, but one
+uniform rule and no restow surprises.
+
+* Hazard: a folded dir puts program-written files in the repo
+=~/.ssh= is a single link to =ssh/.ssh=, so anything *ssh itself* writes lands
+inside the git repo: =known_hosts=, =known_hosts.old=, and the =agent/= socket
+directory. That is what those =.gitignore= entries are for.
+
+Same reason the private keys need ignoring at all — they are not copies, they
+are the real files, living in the repo and symlinked into place.
+
+The ignore file fails safe by pattern rather than naming each key, so a newly
+generated key is never an untracked commit candidate:
+#+begin_src conf
+  id_*
+  !id_*.pub
+  *.pem
+  *.key
+#+end_src
+A private key that fits neither ~id_*~ nor those extensions still needs its own
+line.
+
+Public halves are safe to commit — a =.pub= holds no secret, and GitHub already
+serves them at =github.com/<user>.keys=.
