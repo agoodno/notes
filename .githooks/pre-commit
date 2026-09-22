@@ -1,0 +1,40 @@
+#!/bin/sh
+# Refuse to commit a credential into this repo.
+#
+# This repo is PUBLIC on GitHub, so a push is irreversible in practice: the
+# blob stays fetchable through the network view even after a force-push, and
+# GitHub's own forks/caches may retain it. The only safe fix is never landing
+# it, which is what this hook is for.
+#
+# Scans the staged content (not the worktree), so `git add -p` partial stages
+# are judged on exactly what would be committed.
+#
+# Installed via `git config core.hooksPath .githooks` -- see README.
+# Bypass with `git commit --no-verify` only after confirming a false positive.
+
+command -v "$HOME/bin/brain" >/dev/null 2>&1 || {
+  echo "pre-commit: ~/bin/brain missing; skipping credential scan" >&2
+  exit 0
+}
+
+status=0
+for f in $(git diff --cached --name-only --diff-filter=ACMR); do
+  case "$f" in *.org|*.md|*.txt|*.el|*.sh|*.yml|*.yaml|*.json) ;; *) continue ;; esac
+  out=$(git show ":$f" | "$HOME/bin/brain" secrets --file - 2>/dev/null \
+          | grep -v '^clean:')
+  if [ -n "$out" ]; then
+    echo "pre-commit: credential in staged $f" >&2
+    echo "$out" | sed 's/^-\t/  /' >&2
+    status=1
+  fi
+done
+
+if [ "$status" -ne 0 ]; then
+  cat >&2 <<'MSG'
+
+Commit refused. This repo is public -- rotate the credential, then remove it
+from the note. A documented example key can be allowlisted in
+~/.config/brain/allow-secrets.txt.
+MSG
+fi
+exit $status
