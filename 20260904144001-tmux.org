@@ -1,0 +1,198 @@
+:PROPERTIES:
+:ID:       15B0B889-76FB-4E4A-A9BC-B985271D0B22
+:END:
+#+title: Tmux
+
+Prefix is ~C-t~ (remapped from ~C-b~).
+Config lives at =~/sonos-stow/tmux/.tmux.conf=, stowed to =~/.tmux.conf=.
+
+Layout model: *one session per worktree*, windows for roles inside it
+(=claude=, =shell=). Session name carries the worktree; window names stay short.
+
+* Keys
+** Sessions
+| ~C-t s~     | session/window tree — see [[*Tree mode]] |
+| ~C-t L~     | last session (toggle between two tasks)  |
+| ~C-t (~ ~)~ | previous / next session                  |
+| ~C-t $~     | rename session                           |
+| ~C-t d~     | detach                                   |
+
+No default key kills a session — use tree mode or ~C-t :kill-session~.
+
+** Tree mode (inside ~C-t s~)
+| ~Enter~ | switch to selected item     |
+| ~x~     | kill selected item          |
+| ~t~     | tag item                    |
+| ~X~     | kill all tagged items       |
+| ~C-s~   | search by name              |
+| ~f~     | filter by format            |
+| ~q~     | exit                        |
+
+** Windows
+| ~C-t c~     | new window                            |
+| ~C-t ,~     | rename window                         |
+| ~C-t 0..9~  | select window by index                |
+| ~C-t '~     | prompt for index — the fix for >9      |
+| ~C-t w~     | window list (full names, not clipped) |
+| ~C-t n~ ~p~ | next / previous window                |
+| ~C-t l~     | last window (toggle role in a task)   |
+| ~C-t &~     | kill window (confirms)                |
+
+Two levels of "go back": ~C-t L~ across tasks, ~C-t l~ within one.
+
+** Panes
+| ~C-t %~ | split left/right               |
+| ~C-t "~ | split top/bottom               |
+| ~C-t o~ | next pane                      |
+| ~C-t z~ | zoom / unzoom                  |
+| ~C-t !~ | break pane into its own window |
+| ~C-t x~ | kill pane (confirms)           |
+| ~C-t q~ | show pane numbers              |
+
+** Resurrect
+| ~C-t C-s~ | save all sessions |
+| ~C-t C-r~ | restore           |
+
+Saves are manual and server-wide — see [[*Resurrect]] for paths and caveats.
+
+* Commands
+Run at the ~C-t :~ prompt (no =tmux= prefix). Chain with ~ ; ~ (spaces matter).
+
+** New session for a worktree
+#+begin_src tmux
+  new -s scope-origin-lock-env -c ~/work/pls-scope-origin-lock-env
+#+end_src
+
+** Kill sessions
+#+begin_src tmux
+  kill-session -t <name>   # one
+  kill-session             # current
+  kill-session -a          # all but current
+#+end_src
+
+** Move a window to another session
+#+begin_src tmux
+  move-window -s 0:11 -t relay-service:      # append at next free index
+  move-window -s 0:11 -t relay-service:0 -k  # overwrite index 0, killing it
+#+end_src
+Target session must already exist — ~move-window~ will not create it.
+
+** Clear a stale pane title
+#+begin_src tmux
+  select-pane -T ""
+#+end_src
+Claude Code sets the pane title (~✳ <topic>~) via an escape sequence and tmux
+keeps the last value forever, so exited Claude panes keep a dead title.
+~set -g allow-set-title off~ stops it entirely, at the cost of the useful ones.
+
+* Worktree migration recipe
+Converting one window (with its panes) into its own session. Four lines:
+
+#+begin_src tmux
+  new-session -d -s <name> -c /abs/path/to/worktree
+  move-window -s 0:<idx> -t <name>:0 -k
+  break-pane -d -s %<pane-id> -t <name>: -n claude
+  rename-window -t <name>:0 shell
+#+end_src
+
+Why each flag:
+- ~-k~ on ~move-window~ kills the placeholder window ~new-session~ creates, so
+  nothing is stranded.
+- ~%44~ style *pane IDs*, not indexes — breaking pane 0 renumbers pane 1 to 0
+  and the next command grabs the wrong pane. Get them with:
+  ~list-panes -t 0:14 -F '#{pane_index} #{pane_id} #{pane_current_command}'~
+- ~-d~ on ~break-pane~ stops tmux yanking you into each new window.
+- *Check which pane is which* before labelling. Claude was pane 0 in some
+  windows and pane 1 in others.
+- Single-pane windows skip ~break-pane~ entirely.
+- Processes survive intact; Claude just gets a ~SIGWINCH~ and re-renders.
+
+For a window with many panes, from a shell:
+#+begin_src bash
+  for p in $(tmux list-panes -t 0:14 -F '#{pane_id}' | tail -n +2); do
+    tmux break-pane -d -s "$p" -t <name>:
+  done
+#+end_src
+
+Don't move the window you are attached to — rename the session in place:
+#+begin_src tmux
+  rename-session -t 0 default
+#+end_src
+
+* Resurrect
+Saves are *server-wide*. ~save.sh~ dumps with ~list-panes -a~ / ~list-windows -a~,
+so every session is captured, not just the current one.
+
+Save dir on this machine: =~/.local/share/tmux/resurrect=
+
+#+begin_src bash
+  ls -lt ~/.local/share/tmux/resurrect/    # saves newest first; `last` symlinks to one
+  awk -F'\t' '$1=="pane"{print $2}' ~/.local/share/tmux/resurrect/last | sort -u
+#+end_src
+
+Which directory it picks (=scripts/helpers.sh=):
+
+#+begin_src bash
+  if [ -d "$HOME/.tmux/resurrect" ]; then
+      $HOME/.tmux/resurrect                              # legacy
+  else
+      ${XDG_DATA_HOME:-$HOME/.local/share}/tmux/resurrect # current default
+  fi
+#+end_src
+
+The legacy path wins only if it *already exists*. It doesn't here, so the XDG
+path is used — that is the plugin's own modern default, nothing to fix.
+
+*Hazard:* running ~mkdir $HOME/.tmux/resurrect~ silently flips the location and
+the existing saves will look lost. To move deliberately, set the option and
+migrate the files together:
+
+#+begin_src tmux
+  set -g @resurrect-dir ~/.local/share/tmux/resurrect
+#+end_src
+
+Saves are *manual* — continuum is commented out. Check staleness before
+trusting a restore:
+
+#+begin_src bash
+  ls -l ~/.local/share/tmux/resurrect/last
+#+end_src
+
+A save holds structure only: sessions, windows, panes, names, layouts, working
+directories, and a conservative allowlist of programs to relaunch. Claude Code
+sessions do *not* come back live — you get shells in the right directories.
+
+* Status bar
+Session name on the left comes from catppuccin's session module, which also
+flashes *red while the prefix is held* — a handy ~C-t~ indicator.
+
+#+begin_src tmux
+  set -g status-left-length 40
+  set -g status-left "#{E:@catppuccin_status_session}"
+  set -g status-right-length 60
+  set -g status-right "#{pane_title} | #(date '+%H:%M')"
+#+end_src
+
+Gotchas:
+- These four lines must sit *below* the ~run .../catppuccin.tmux~ line; the
+  module option doesn't exist until the plugin loads.
+- ~status-left-length~ defaults to *10* and ~status-right-length~ to *40*.
+  Style markup doesn't count toward them, so overflow clips text mid-word
+  while colors survive — it reads like a rendering bug.
+- Raising the caps doesn't create width. To reclaim space, truncate:
+  ~#{=/20/…:pane_title}~.
+- Reload without restarting: ~C-t :source ~/.tmux.conf~
+
+* Inspection one-liners
+#+begin_src bash
+  tmux list-sessions -F '#{session_name}: #{session_windows} windows'
+  tmux list-windows -t 0 -F '#{window_index}: #{window_name} | #{pane_current_path}'
+  tmux list-panes -a -F '#{session_name}:#{window_index}.#{pane_index} | #{pane_id} | #{pane_current_command} | #{pane_title}'
+  tmux display -p "#{E:status-left}"          # what the bar actually renders
+  tmux list-keys -T prefix | grep -i kill     # what a key is really bound to
+#+end_src
+
+* References
+** [[id:D4F11D13-7362-4906-846F-BA30ACED006D][GNU Stow]]
+How =tmux/.tmux.conf= reaches =~/.tmux.conf=, and why this package folds into a
+single symlink.
