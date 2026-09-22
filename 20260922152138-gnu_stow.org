@@ -6,6 +6,7 @@
 #+options: toc:nil
 
 * GNU Stow
+** Summary
 Packages live in =~/sonos-stow/=, one directory per package. Run from inside
 that repo; stow assumes the *parent* directory is the target, so a checkout at
 the home directory root needs no ~-t~.
@@ -18,7 +19,7 @@ the home directory root needs no ~-t~.
   stow -n -v -R <pkg>  # simulate; prints actions, writes nothing
 #+end_src
 
-* Tree folding: whole dir vs. individual files
+** Tree folding: whole dir vs. individual files
 Stow links *the shallowest thing it can get away with*. The only input to the
 decision is *what already exists at the target path* — nothing about the
 package matters.
@@ -35,7 +36,7 @@ For each item in the package, compared against its target:
 So it recurses only as far as it is forced to, and the boundary can land at any
 depth.
 
-** How that played out here
+*** How that played out here
 | =~/.ssh=, =~/bin=, =~/.gitconfig=  | one symlink each — nothing pre-existed  |
 | =~/.claude=                        | real dir; 6 children linked, 31 left alone |
 | =~/.config/direnv/direnvrc=        | descended *twice*; fold landed on the file |
@@ -45,7 +46,7 @@ depth.
 whole thing. =~/.config= and =~/.config/direnv= likewise already existed, which
 pushed the direnv fold down to a single file.
 
-** The consequence that actually bites
+*** The consequence that actually bites
 *Folded packages need no restow; unfolded ones do.*
 
 - Adding =ssh/.ssh/newkey.pub= is live at =~/.ssh/= immediately — the directory
@@ -63,7 +64,7 @@ Check which case a target is in:
 ~stow --no-folding~ forces per-file links everywhere — more symlinks, but one
 uniform rule and no restow surprises.
 
-* Hazard: a folded dir puts program-written files in the repo
+** Hazard: a folded dir puts program-written files in the repo
 =~/.ssh= is a single link to =ssh/.ssh=, so anything *ssh itself* writes lands
 inside the git repo: =known_hosts=, =known_hosts.old=, and the =agent/= socket
 directory. That is what those =.gitignore= entries are for.
