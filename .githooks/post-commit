@@ -1,0 +1,37 @@
+#!/bin/sh
+# Push every commit to origin, so losing the laptop can't lose the notes.
+#
+# Backgrounded on purpose: commits come from magit, and a synchronous push
+# against a dead network would block Emacs until it timed out. Failures go to
+# the log instead of into Andy's way, and the next commit retries.
+#
+# Installed via `git config core.hooksPath .githooks` -- see README.
+
+log="${TMPDIR:-/tmp}/notes-autopush.log"
+repo=$(git rev-parse --show-toplevel) || exit 0
+
+# Detached HEAD, no upstream, or mid-rebase/merge: nothing safe to push.
+git rev-parse --abbrev-ref '@{u}' >/dev/null 2>&1 || exit 0
+[ -d "$(git rev-parse --git-path rebase-merge)" ] && exit 0
+[ -d "$(git rev-parse --git-path rebase-apply)" ] && exit 0
+[ -f "$(git rev-parse --git-path MERGE_HEAD)" ] && exit 0
+
+branch=$(git rev-parse --abbrev-ref HEAD)
+
+# git exports GIT_DIR and friends to hooks; they leak into the background
+# child and break a push that resolves paths from a different cwd.
+#
+# The push output is kept because pre-push can refuse it over a credential,
+# and that message is the whole point of the gate -- a bare "FAILED" would
+# read like a network blip.
+(
+  if out=$(env -u GIT_DIR -u GIT_WORK_TREE -u GIT_INDEX_FILE -u GIT_PREFIX \
+             git -C "$repo" push --quiet origin "$branch" 2>&1); then
+    echo "$(date '+%F %T') pushed $branch"
+  else
+    echo "$(date '+%F %T') push FAILED -- run: git -C $repo push origin $branch"
+    [ -n "$out" ] && printf '%s\n' "$out" | sed 's/^/    /'
+  fi >>"$log"
+) >/dev/null 2>&1 &
+
+exit 0

@@ -1,0 +1,64 @@
+#!/bin/sh
+# Refuse to push a commit whose content holds a credential.
+#
+# pre-commit gates the staged snapshot, but --no-verify skips it and an amend
+# or rebase can reintroduce a blob it already cleared. This repo is PUBLIC and
+# a pushed blob stays fetchable through the network view even after a
+# force-push, so the check at the network boundary is the thorough one: it
+# scans every blob the push would newly publish, including blobs a later
+# commit deleted -- removing a secret from the tip leaves it in history.
+#
+# Installed via `git config core.hooksPath .githooks` -- see README.
+# Bypass with `git push --no-verify` only after confirming a false positive.
+
+remote="$1"
+
+command -v "$HOME/bin/brain" >/dev/null 2>&1 || {
+  echo "pre-push: ~/bin/brain missing; skipping credential scan" >&2
+  exit 0
+}
+
+findings=$(mktemp) || exit 0
+trap 'rm -f "$findings"' EXIT INT TERM
+
+while read -r _local_ref local_sha _remote_ref remote_sha; do
+  # All-zero sha on the local side is a ref deletion: nothing to scan.
+  case "$local_sha" in *[!0]*) ;; *) continue ;; esac
+
+  case "$remote_sha" in
+    *[!0]*) set -- "$remote_sha..$local_sha" ;;                 # existing branch
+    *)      set -- "$local_sha" --not --remotes="$remote" ;;    # new branch
+  esac
+
+  git rev-list --objects "$@" | sort -u | while read -r sha path; do
+    [ -n "$path" ] || continue          # commits carry no path
+    case "$path" in
+      *.org|*.md|*.txt|*.el|*.sh|*.yml|*.yaml|*.json) ;;
+      *) continue ;;
+    esac
+    # Trees carry a path too, so check the type before reading it as text.
+    [ "$(git cat-file -t "$sha" 2>/dev/null)" = blob ] || continue
+
+    out=$(git cat-file blob "$sha" \
+            | "$HOME/bin/brain" secrets --file - 2>/dev/null \
+            | grep -v '^clean:')
+    [ -n "$out" ] || continue
+    printf '%s\n' "$out" | while IFS= read -r line; do
+      printf '  %s%s\n' "$path" "${line#-}"
+    done >>"$findings"
+  done
+done
+
+if [ -s "$findings" ]; then
+  echo "pre-push: credential in the commits being pushed:" >&2
+  cat "$findings" >&2
+  cat >&2 <<'MSG'
+
+Push refused. This repo is public and a pushed blob is not retractable --
+rotate the credential, then rewrite it out of history (interactive rebase, or
+git-filter-repo) before pushing. A documented example key can be allowlisted
+in ~/.config/brain/allow-secrets.txt.
+MSG
+  exit 1
+fi
+exit 0
