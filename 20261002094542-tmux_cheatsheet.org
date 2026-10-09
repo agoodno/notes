@@ -1,0 +1,108 @@
+:PROPERTIES:
+:ID:       A8202907-70DA-43A9-A42C-672E0B3D2740
+:END:
+#+title: Tmux Cheatsheet
+#+filetags: :tmux:reference:
+#+options: toc:nil
+
+* Tmux Cheatsheet
+Related: [[id:15B0B889-76FB-4E4A-A9BC-B985271D0B22][Tmux]]
+
+** Summary
+Default tmux bindings, condensed from tmuxcheatsheet.com. ~prefix~ is ~C-b~ by default; on this machine it is ~C-t~ and some keys are rebound — see the personal Tmux note (linked
+below) for actual setup. ~:~ means type at the ~prefix :~ command prompt; ~$~ means run in a shell.
+
+** Sessions
+| Key / command                      | Action                                     |
+|------------------------------------+--------------------------------------------|
+| ~$ tmux new -s NAME~               | new session named NAME                     |
+| ~$ tmux new -A -s NAME~            | attach to NAME, creating it if missing     |
+| ~$ tmux ls~                        | list sessions                              |
+| ~$ tmux a~                         | attach to last session                     |
+| ~$ tmux a -t NAME~                 | attach to NAME                             |
+| ~: attach -d~                      | detach other clients on the session        |
+| ~$ tmux kill-session -t NAME~      | kill NAME                                  |
+| ~: kill-session~                   | kill current session                       |
+| ~$ tmux kill-session -a~           | kill all but current                       |
+| ~$ tmux kill-session -a -t NAME~   | kill all but NAME                          |
+| ~prefix $~                         | rename session                             |
+| ~prefix d~                         | detach                                     |
+| ~prefix s~                         | list sessions                              |
+| ~prefix w~                         | session + window preview tree              |
+| ~prefix (~ / ~prefix )~            | previous / next session                    |
+
+** Windows
+| Key / command                          | Action                                |
+|----------------------------------------+---------------------------------------|
+| ~$ tmux new -s NAME -n WIN~            | new session with named first window   |
+| ~prefix c~                             | create window                         |
+| ~prefix ,~                             | rename window                         |
+| ~prefix &~                             | close window                          |
+| ~prefix w~                             | list windows                          |
+| ~prefix p~ / ~prefix n~                | previous / next window                |
+| ~prefix 0..9~                          | select window by number               |
+| ~prefix l~                             | toggle last active window             |
+| ~prefix <~                             | window actions menu                   |
+| ~: swap-window -s 2 -t 1~              | swap windows 2 and 1                  |
+| ~: swap-window -t -1~                  | move current window left one          |
+| ~: move-window -s SRC:WIN -t DST:WIN~  | move window between sessions          |
+| ~: move-window -r~                     | renumber windows to close gaps        |
+
+** Panes
+| Key / command                 | Action                                   |
+|-------------------------------+------------------------------------------|
+| ~prefix %~ / ~: split-window -h~ | split left/right                      |
+| ~prefix "~ / ~: split-window -v~ | split top/bottom                      |
+| ~prefix ;~                    | toggle last active pane                  |
+| ~prefix o~                    | next pane                                |
+| ~prefix ↑↓←→~                 | move to pane in direction                |
+| ~prefix q~                    | show pane numbers                        |
+| ~prefix q 0..9~               | select pane by number                    |
+| ~prefix z~                    | toggle zoom                              |
+| ~prefix !~                    | convert pane into a window               |
+| ~prefix x~                    | close pane                               |
+| ~prefix {~ / ~prefix }~       | move pane left / right                   |
+| ~prefix Space~                | cycle pane layouts                       |
+| ~prefix - + < >~              | resize pane height / width               |
+| ~: join-pane -s 2 -t 1~       | join window 2 into window 1 as a pane    |
+| ~: join-pane -s 2.1 -t 1.0~   | move pane between windows                |
+| ~: setw synchronize-panes~    | toggle typing in all panes at once       |
+
+** Copy mode
+Enable vi keys with ~: setw -g mode-keys vi~.
+
+| Key / command           | Action                                  |
+|-------------------------+-----------------------------------------|
+| ~prefix [~              | enter copy mode                         |
+| ~prefix PgUp~           | enter copy mode, one page up            |
+| ~q~                     | quit                                    |
+| ~g~ / ~G~               | top / bottom line                       |
+| ~h j k l~               | move cursor (vi)                        |
+| ~w~ / ~b~               | forward / back one word                 |
+| ~/~ / ~?~               | search forward / backward               |
+| ~n~ / ~N~               | next / previous match                   |
+| ~Space~                 | start selection                         |
+| ~Esc~                   | clear selection                         |
+| ~Enter~                 | copy selection                          |
+| ~prefix ]~              | paste buffer_0                          |
+| ~: show-buffer~         | display buffer_0                        |
+| ~: capture-pane~        | copy visible pane to buffer             |
+| ~: list-buffers~        | list buffers                            |
+| ~: choose-buffer~       | pick a buffer and paste it              |
+| ~: save-buffer FILE~    | write buffer to file                    |
+| ~: delete-buffer -b 1~  | delete buffer_1                         |
+
+** Misc and help
+| Key / command         | Action                              |
+|-----------------------+-------------------------------------|
+| ~prefix :~            | command prompt                      |
+| ~: set -g OPT~        | set option for all sessions         |
+| ~: setw -g OPT~       | set option for all windows          |
+| ~: set mouse on~      | enable mouse                        |
+| ~$ tmux -V~           | version                             |
+| ~prefix ?~            | list key bindings                   |
+| ~$ tmux list-keys~    | list key bindings                   |
+| ~$ tmux info~         | dump every session, window, pane    |
+
+** References
+Source: https://tmuxcheatsheet.com/
